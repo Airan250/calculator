@@ -93,7 +93,7 @@ font-size: 18px;
 </div>
 <div class="button">
     <div class="number-button">
-    <div class="button1"><button onclick="show(1)">1</button></div>
+    <div class="button1"><button dataValue="1" onclick="show(1)">1</button></div>
     <div class="button2"><button onclick="show(2)">2</button></div>
     <div class="button3"><button onclick="show(3)">3</button></div>
     <div class="button4"><button onclick="show(4)">4</button></div>
@@ -117,17 +117,60 @@ font-size: 18px;
 <!--    javascript code start from here-->
 
 <script>
+  var expArray = []; //
+  var expString = '';
+
   function show(num){
-     document.getElementById("result").value+=num
+
+    // console.log(expArray[expArray.length-1])
+
+    var lastChar = expArray[expArray.length-1];
+
+    if(num == "*" || num == "+" || num == "-"){
+
+      if( lastChar == "*" || lastChar == "+" || lastChar == "-" ){
+        expArray.pop();
+        expArray.push(num);
+
+      }
+      else{
+        expArray.push(num);
+      }
+      
+    }
+    else{
+      expArray.push(num);
+    }
+
+
+    expString = "";
+
+    for(var i = 0; i< expArray.length ; i++){
+    expString += expArray[i];
+    document.getElementById("result").value = expString;
+    // console.log(expString);
+
+    //  document.getElementById("result").value+=numexpString
   }
+  }
+
   function igisubizo(){
     let x = document.getElementById("result").value
     let y = eval(x)
+    expArray = [y];
     document.getElementById("result").value = y
   }
+
   function clr(){
-    document.getElementById("result").value = ""
+    expArray = [];
+    console.log(expArray);
+    document.getElementById("result").value = "";
   }
+
 </script>
 </body>
 </html>
+
+
+
+
